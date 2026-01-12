@@ -5,6 +5,7 @@ namespace App\core;
 class Router
 {
     private array $routes = [];
+    private string $basePath = '';
 
     public function get(string $path, string $action): void
     {
@@ -16,14 +17,20 @@ class Router
         $this->routes["POST"][$path] = $action;
     }
 
+    public function setBasePath(string $basePath): void
+    {
+        $this->basePath = $basePath;
+    }
+
     public function dispatch(): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-
-        $basePath = '/Modernisation-d%E2%80%99une-application-de-Job-Dating/public';
-        $url = str_replace($basePath, '', $url);
+        ///
+        if ($this->basePath !== '') {
+            $url = str_replace($this->basePath, '', $url);
+        }
 
         if ($url === '') {
             $url = '/';
@@ -38,8 +45,20 @@ class Router
         [$controller, $action] = explode("@", $this->routes[$method][$url]);
 
         $controllerClass = 'App\\Controllers\\' . $controller;
+        ///check wach kayna l class bach netfadat fatal error
+        if (!class_exists($controllerClass)) {
+            http_response_code(500);
+            echo "Controller not found";
+            return;
+        }
 
         $controllerInstance = new $controllerClass();
+        ///check wach kayna l method
+        if (!method_exists($controllerInstance, $action)) {
+            http_response_code(500);
+            echo "Method not found";
+            return;
+        }
 
         $controllerInstance->$action();
     }
