@@ -1,3 +1,7 @@
 <?php 
+use App\core\Router;
 
-// $router->get('/', 'HomeController@index');
+ /** @var Router $router */
+
+$router->get('/', 'HomeController@index');
+
