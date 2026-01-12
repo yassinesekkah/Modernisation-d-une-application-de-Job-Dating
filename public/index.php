@@ -1,4 +1,10 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-\App\Core\Test::hello();
+use App\core\Router;
+
+$router = new Router();
+
+require_once __DIR__ . '/../config/routes.php';
+
+ $router->dispatch();
