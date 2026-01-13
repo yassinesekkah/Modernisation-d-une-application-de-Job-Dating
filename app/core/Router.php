@@ -5,7 +5,6 @@ namespace App\core;
 class Router
 {
     private array $routes = [];
-    private string $basePath = '';
 
     public function get(string $path, string $action): void
     {
@@ -17,20 +16,10 @@ class Router
         $this->routes["POST"][$path] = $action;
     }
 
-    public function setBasePath(string $basePath): void
-    {
-        $this->basePath = $basePath;
-    }
-
     public function dispatch(): void
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
-        ///
-        if ($this->basePath !== '') {
-            $url = str_replace($this->basePath, '', $url);
-        }
 
         if ($url === '') {
             $url = '/';
