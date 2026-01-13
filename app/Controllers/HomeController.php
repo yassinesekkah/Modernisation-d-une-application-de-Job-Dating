@@ -3,19 +3,15 @@
 namespace App\Controllers;
 
 use App\core\Controller;
+use App\core\View;
 
 class HomeController extends Controller
 {
     public function index()
     {   
-      $test =   $this -> render('home/index', [
-            'title' => 'Acceuil',
+      View::render('home/index', [
+            'title' => 'Test View',
             'username' => 'Yassine'
         ]);
-
-        echo "Home route khdama ";
-
-    // $this -> redirect("/login.php");
-        
     }
 }
