@@ -3,5 +3,5 @@ use App\core\Router;
 
  /** @var Router $router */
 
-$router->get('/', 'HomeController@index');
+$router->get('/', 'front\\HomeController@index');
 
