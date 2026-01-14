@@ -2,6 +2,17 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\core\Router;
+use App\core\Model;
+
+$pdo = new \PDO(
+    "mysql:host=localhost;dbname=job_dating;charset=utf8",
+    "root",
+    ""
+);
+
+$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+Model::setDatabase($pdo);
 
 $router = new Router();
 

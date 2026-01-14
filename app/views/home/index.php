@@ -1,2 +1,7 @@
-<h1>Home page</h1>
-<p>Bienvenue <?= $username ?? '' ?></p>
+<h2><?= $title ?></h2>
+
+<ul>
+    <?php foreach ($users as $user): ?>
+        <li><?= $user['email'] ?></li>
+    <?php endforeach; ?>
+</ul>
