@@ -2,19 +2,32 @@
 
 namespace App\Controllers\Front;
 
-use App\core\Controller;
-use App\models\User;
-use App\core\View;
+use App\Core\Controller;
+use App\Models\User;
+use App\Core\View;
 
 class HomeController extends Controller
 {
     public function index()
-    {   
-       $users =  User::all();
+    {
+        $users =  User::all();
 
-      View::render('home/index', [
+        $userFound = User::find(3);
+
+        View::render('home/index', [
             'users' => $users,
-            'title' => 'Liste des utilisateurs'
+            'title' => 'Liste des utilisateurs',
+            'userFound' => $userFound
         ]);
+    }
+
+    public function store()
+    {
+        User::create([
+            'email' => $_POST['email'],
+            'password' => $_POST['password']
+        ]);
+
+        $this->redirect('/');
     }
 }
