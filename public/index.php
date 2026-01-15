@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use App\core\Router;
-use App\core\Model;
+use App\Core\Router;
+use App\Core\Model;
 
 $pdo = new \PDO(
     "mysql:host=localhost;dbname=job_dating;charset=utf8",
