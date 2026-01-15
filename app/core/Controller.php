@@ -16,6 +16,15 @@ abstract class Controller
         require $this -> viewsPath . $view . ".php";
     }
 
+    ///verify csrf
+    protected function verifyCsrf(): void
+    {
+        if (!Security::verifyCsrfToken($_POST['csrf_token'] ?? null)) {
+            http_response_code(403);
+            exit('Forbidden - CSRF token invalid');
+        }
+    }
+
     //// base redirect
     protected function redirect(string $path): void
     {

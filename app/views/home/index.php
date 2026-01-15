@@ -1,49 +1,60 @@
-<?php use app\Core\View; ?>
+<?php
+
+use App\Core\View; 
+use App\Core\Security; ?>
 
 <h2><?= $title ?></h2>
 
 <ul>
     <?php foreach ($users as $user): ?>
-    <li>
-        <?= View::e($user['email']) ?>
+        <li>
+            <?= View::e($user['email']) ?>
 
-        <!-- Update form -->
-        <form method="post" action="/users/update" style="display:inline">
-            <input type="hidden" name="id" value="<?= $user['id'] ?>">
-            
+            <!-- Update form -->
+            <form method="post" action="/users/update" style="display:inline">
 
-            <input type="email" name="email"
-                   value="<?= View::e($user['email']) ?>" required>
-
-            <input type="password" name="password"
-                   placeholder="New password" required>
-
-            <button type="submit">Update</button>
-        </form>
-
-        <!-- Delete form -->
-        <form method="post" action="/users/delete" style="display:inline">
-            <input type="hidden" name="id" value="<?= $user['id'] ?>">
-            
-            <button type="submit">Delete</button>
-        </form>
-    </li>
-<?php endforeach; ?>
+                <input type="hidden" name="csrf_token"
+                    value="<?= Security::generateCsrfToken(); ?>">
+                <input type="hidden" name="id" value="<?= $user['id'] ?>">
 
 
-    <?php if(!empty($userFound)): ?>
+                <input type="email" name="email"
+                    value="<?= View::e($user['email']) ?>" required>
+
+                <input type="password" name="password"
+                    placeholder="New password" required>
+
+                <button type="submit">Update</button>
+            </form>
+
+            <!-- Delete form -->
+            <form method="post" action="/users/delete" style="display:inline">
+
+                <input type="hidden" name="csrf_token"
+                    value="<?= Security::generateCsrfToken(); ?>">
+                <input type="hidden" name="id" value="<?= $user['id'] ?>">
+
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
+    <?php if (!empty($userFound)): ?>
 
         <ul>
             <li><?= View::e($userFound['email']) ?></li>
         </ul>
-    <?php else:?>
+    <?php else: ?>
         <p>Aucun utilisateur trouve</p>
     <?php endif; ?>
 
-</ul>
+
 
 
 <form method="post" action="/users/store">
+    <input type="hidden" name="csrf_token"
+        value="<?= Security::generateCsrfToken(); ?>">
     <input type="email" name="email" placeholder="Email" required>
     <input type="password" name="password" placeholder="Password" required>
     <button type="submit">Create user</button>

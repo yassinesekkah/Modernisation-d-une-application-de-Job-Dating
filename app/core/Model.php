@@ -50,7 +50,7 @@ abstract class Model
     {
         $fields = array_keys($data);
         $setClause = implode(', ', array_map(
-            fn($field) => "$field = :$field",
+            fn($field) => "$    field = :$field",
             $fields
         ));
 

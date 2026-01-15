@@ -6,6 +6,7 @@ use App\Core\Controller;
 use App\Models\User;
 use App\Core\View;
 
+
 class HomeController extends Controller
 {
     public function index()
@@ -23,6 +24,8 @@ class HomeController extends Controller
 
     public function store()
     {
+        $this -> verifyCsrf();
+
         User::create([
             'email' => $_POST['email'],
             'password' => $_POST['password']
@@ -33,6 +36,8 @@ class HomeController extends Controller
 
     public function update()
     {
+        $this -> verifyCsrf();
+
         User::update((int) $_POST['id'], [
             'email' => $_POST['email'],
             'password' => $_POST['password']
@@ -42,7 +47,9 @@ class HomeController extends Controller
     }
 
     public function delete()
-    {
+    {   
+        $this -> verifyCsrf();
+
         User::delete((int) $_POST['id']);
 
         $this->redirect('/');
