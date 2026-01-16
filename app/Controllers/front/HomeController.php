@@ -6,6 +6,7 @@ use App\Core\Controller;
 use App\Core\Validator;
 use App\Models\User;
 use App\Core\View;
+use App\Core\Security;
 
 
 class HomeController extends Controller
@@ -41,6 +42,8 @@ class HomeController extends Controller
 
         $data = $validator->validated(['email', 'password']);
 
+        $data['password'] = Security::hashPassword($data['password']);
+
         User::create($data);
 
         $this->redirect('/');
@@ -64,6 +67,10 @@ class HomeController extends Controller
         }
 
         $data = $validator->validated(['email', 'password']);
+
+        if (!empty($data['password'])) {
+            $data['password'] = Security::hashPassword($data['password']);
+        }
 
         User::update((int) $_POST['id'], $data);
 
