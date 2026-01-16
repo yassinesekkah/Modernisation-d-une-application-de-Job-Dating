@@ -1,25 +1,28 @@
 <?php
-session_start();
 
+require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use App\Core\Session;
 use App\Core\Router;
 use App\Core\Model;
+use App\Core\Database;
 
-$pdo = new \PDO(
-    "mysql:host=localhost;dbname=job_dating;charset=utf8",
-    "root",
-    ""
+// start session
+Session::start();
+
+// inject database connection into Base Model
+Model::setDatabase(
+    Database::getInstance()->getConnection()
 );
 
-$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-
-Model::setDatabase($pdo);
-
+// router
 $router = new Router();
 
+// load routes
 require_once __DIR__ . '/../config/routes.php';
 
- $router->dispatch();
+// dispatch request
+$router->dispatch();
 
  //////php -S localhost::8080

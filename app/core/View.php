@@ -1,13 +1,17 @@
 <?php
 
-namespace app\Core;
+namespace App\Core;
 
 class View
 {
     private static string $viewPath = __DIR__ . "/../views/";
     private static string $layoutPath = __DIR__ . "/../views/layouts/";
 
-    public static function render(string $view, array $data = []): void
+    public static function render(
+        string $view,
+        array $data = [],
+        string $layout = 'front'
+    ): void 
     {
         if (!empty($data)) {
             extract($data);
@@ -17,10 +21,10 @@ class View
         require self::$viewPath . $view . ".php";
         $content = ob_get_clean();
 
-        require self::$layoutPath . 'main.php';
+        require self::$layoutPath . $layout . ".php";
     }
 
-    /// nman3o XXS 
+    /// nman3o XSS
     public static function e(string $value): string
     {
         return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
