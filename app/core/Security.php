@@ -2,11 +2,12 @@
 
 namespace App\Core;
 
+
 class Security
 {
     public static function generateCsrfToken(): string
     {
-        if (Session::has('csrf_token')) {
+        if (!Session::has('csrf_token')) {
             Session::set('csrf_token', bin2hex(random_bytes(32)));
         }
 
@@ -16,6 +17,14 @@ class Security
     public static function verifyCsrfToken(?string $token): bool
     {
         return Session::has('csrf_token') && hash_equals(Session::get('csrf_token'), $token);
+    }
+
+    public static function checkCsrfOrFail(?string $token): void
+    {
+        if (!self::verifyCsrfToken($token)) {
+            http_response_code(403);
+            exit('Forbidden - invalid CSRF token');
+        }
     }
 
     public static function hashPassword(string $password): string
