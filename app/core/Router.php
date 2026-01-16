@@ -31,7 +31,10 @@ class Router
             return;
         }
 
-        [$controller, $action] = explode("@", $this->routes[$method][$url]);
+        [$controller, $action] = array_map(
+            'trim',
+            explode("@", $this->routes[$method][$url])
+        );
 
         $controllerClass = 'App\\Controllers\\' . $controller;
         ///check wach kayna l class bach netfadat fatal error
@@ -40,7 +43,7 @@ class Router
             echo "Controller not found";
             return;
         }
-
+        
         $controllerInstance = new $controllerClass();
         ///check wach kayna l method
         if (!method_exists($controllerInstance, $action)) {

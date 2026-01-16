@@ -3,6 +3,7 @@
 namespace App\Controllers\Front;
 
 use App\Core\Controller;
+use App\Core\Validator;
 use App\Models\User;
 use App\Core\View;
 
@@ -13,7 +14,7 @@ class HomeController extends Controller
     {
         $users =  User::all();
 
-        $userFound = User::find(3);
+        $userFound = User::find(7);
 
         View::render('home/index', [
             'users' => $users,
@@ -24,31 +25,54 @@ class HomeController extends Controller
 
     public function store()
     {
-        $this -> verifyCsrf();
+        $this->verifyCsrf();
 
-        User::create([
-            'email' => $_POST['email'],
-            'password' => $_POST['password']
-        ]);
+        $validator = new Validator($_POST);
+
+        $validator
+            ->required('email')
+            ->email('email')
+            ->required('password')
+            ->min('password', 6);
+
+        if ($validator->fails()) {
+            die(print_r($validator->errors()));
+        }
+
+        $data = $validator->validated(['email', 'password']);
+
+        User::create($data);
 
         $this->redirect('/');
     }
 
     public function update()
     {
-        $this -> verifyCsrf();
+        $this->verifyCsrf();
 
-        User::update((int) $_POST['id'], [
-            'email' => $_POST['email'],
-            'password' => $_POST['password']
-        ]);
+        $validator = new Validator($_POST);
+        $validator
+            ->required('email')
+            ->email('email');
+
+        if (!empty($_POST['password'])) {
+            $validator->min('password', 6);
+        }
+
+        if ($validator->fails()) {
+            die(print_r($validator->errors()));
+        }
+
+        $data = $validator->validated(['email', 'password']);
+
+        User::update((int) $_POST['id'], $data);
 
         $this->redirect('/');
     }
 
     public function delete()
-    {   
-        $this -> verifyCsrf();
+    {
+        $this->verifyCsrf();
 
         User::delete((int) $_POST['id']);
 

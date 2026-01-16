@@ -15,7 +15,10 @@ abstract class Model
     ///fetch All
     public static function all(): array
     {
-        $stmt = self::$db->query("SELECT * FROM " . static::$table);
+        $stmt = self::$db->prepare(
+            "SELECT * FROM " . static::$table
+        );
+        $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
@@ -50,7 +53,7 @@ abstract class Model
     {
         $fields = array_keys($data);
         $setClause = implode(', ', array_map(
-            fn($field) => "$    field = :$field",
+            fn($field) => "$field = :$field",
             $fields
         ));
 

@@ -22,7 +22,7 @@ use App\Core\Security; ?>
                     value="<?= View::e($user['email']) ?>" required>
 
                 <input type="password" name="password"
-                    placeholder="New password" required>
+                    placeholder="New password">
 
                 <button type="submit">Update</button>
             </form>

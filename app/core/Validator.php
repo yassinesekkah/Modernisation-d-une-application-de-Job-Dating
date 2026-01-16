@@ -5,28 +5,34 @@ namespace App\Core;
 class Validator
 {
     private array $errors = [];
+    private array $data = [];
 
-    public function required(string $field, $value): self
+    public function __construct(array $data)
     {
-        if(empty(trim($value))){
-            $this -> errors[$field][] = "Ce champ est obligatoire";
+        $this -> data = $data;
+    }
+
+    public function required(string $field): self
+    {
+        if(empty(trim($this->data[$field]?? ''))){
+            $this -> errors[$field][] = 'Ce champ est obligatoire';
         }
 
         return $this;
     }
 
-    public function email(string $field, $value): self
+    public function email(string $field): self
     {
-        if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
+        if(!filter_var($this->data[$field]?? '', FILTER_VALIDATE_EMAIL)){
             $this -> errors[$field][] = "Email invalide";
         }
 
         return $this;
     }
 
-    public function min(string $field, $value, int $length): self
+    public function min(string $field, int $length): self
     {   
-        if(strlen($value) < $length){
+        if(strlen($this->data[$field] ?? '') < $length){
             $this -> errors[$field][] = "Minimum {$length} caractères";
         }
 
@@ -41,5 +47,17 @@ class Validator
     public function errors(): array
     {
         return $this -> errors;
+    }
+
+    public function validated(array $fields): array
+    {
+        $result = [];
+        
+        foreach($fields as $field){
+            if(isset($this-> data[$field]) && $this ->data[$field] !== ''){
+                $result[$field] = $this -> data[$field];
+            }
+        }
+        return $result;
     }
 }
