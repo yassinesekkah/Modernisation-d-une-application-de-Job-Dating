@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controllers\Back;
 
@@ -12,7 +12,8 @@ class AdminController extends Controller
     {
         Security::requireRole('admin');
 
-        View::render('admin/dashboard');
+        View::render('admin/dashboard', [
+            'title' => 'Admin Dashboard'
+        ], 'back');
     }
-
 }
