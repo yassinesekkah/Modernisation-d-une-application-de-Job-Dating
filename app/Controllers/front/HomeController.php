@@ -78,7 +78,9 @@ class HomeController extends Controller
     }
 
     public function delete()
-    {
+    {   
+        Security::requirePermission('delete_users');
+        
         $this->verifyCsrf();
 
         User::delete((int) $_POST['id']);

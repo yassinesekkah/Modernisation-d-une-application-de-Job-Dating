@@ -5,6 +5,17 @@ namespace App\Core;
 
 class Security
 {
+    private static array $permissions = [
+        'admin' => [
+            'view_admin',
+            'manage_users',
+            'delete_users',
+        ],
+        'user' => [
+            'view_profile',
+        ],
+    ];
+
     public static function generateCsrfToken(): string
     {
         if (!Session::has('csrf_token')) {
@@ -48,17 +59,44 @@ class Security
 
     ///check Role
     public static function requireRole(string $role): void
-    {   
+    {
         self::requireAuth();
 
         if (Session::get('user')['role'] !== $role) {
-        http_response_code(403);
-        exit('Access denied');
+            http_response_code(403);
+            exit('Access denied');
         }
     }
 
     public static function isAdmin(): bool
     {
         return Session::has('user') && Session::get('user')['role'] === 'admin';
+    }
+
+
+    public static function hasPermission(string $permission): bool
+    {
+        if (!Session::has('user')) {
+            return false;
+        }
+
+        //njibo role
+        $role = Session::get('user')['role'];
+
+        return in_array(
+            $permission,
+            self::$permissions[$role] ?? [],
+            true
+        );
+    }
+
+    public static function requirePermission(string $permission): void
+    {
+        self::requireAuth();
+
+        if (!self::hasPermission($permission)) {
+            http_response_code(403);
+            exit('Permission denied');
+        }
     }
 }
