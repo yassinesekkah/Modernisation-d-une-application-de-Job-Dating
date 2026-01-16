@@ -19,5 +19,8 @@ $router->get('/login', 'Front\\AuthController@loginForm');
 $router->post('/login', 'Front\\AuthController@login');
 $router->get('/logout', 'Front\\AuthController@logout');
 
+//admin routes
+$router->get('/admin', 'Back\\AdminController@dashboard');
+
 
 

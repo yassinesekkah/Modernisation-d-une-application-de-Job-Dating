@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +9,11 @@
 
 <header style="background: #ddd; padding: 10px;">
     <strong>HEADER</strong>
+
+    <?php if (\App\Core\Security::isAdmin()): ?>
+        | <a href="/admin">Admin</a>
+    <?php endif; ?>
+    
 </header>
 
 <main style="padding: 10px;">

@@ -37,4 +37,28 @@ class Security
         return password_verify($password, $hash);
     }
 
+    ///check lconexion
+    public static function requireAuth(): void
+    {
+        if (!Session::has('user')) {
+            http_response_code(401);
+            exit('Unauthorized');
+        }
+    }
+
+    ///check Role
+    public static function requireRole(string $role): void
+    {   
+        self::requireAuth();
+
+        if (Session::get('user')['role'] !== $role) {
+        http_response_code(403);
+        exit('Access denied');
+        }
+    }
+
+    public static function isAdmin(): bool
+    {
+        return Session::has('user') && Session::get('user')['role'] === 'admin';
+    }
 }

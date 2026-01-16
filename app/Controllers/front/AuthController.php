@@ -90,8 +90,11 @@ class AuthController extends Controller
             die('Email ou mot de passe incorrect');
         }
 
-    ///nstockiw user id f session
-        Session::set('user_id', $user['id']);
+    ///nstockiw user id f session avec role
+        Session::set('user', [
+            'id' => $user['id'],
+            'role' => $user['role']
+        ]);
 
     ////rediction
         $this -> redirect('/');
