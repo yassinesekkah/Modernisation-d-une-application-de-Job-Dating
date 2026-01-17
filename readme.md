@@ -26,58 +26,6 @@ Le framework est léger, structuré, sécurisé et extensible.
 
 ---
 
-## 🗂️ Structure du projet
-
-JOB-DATING/
-├── App/
-│ ├── Controllers/
-│ │ ├── Back/
-│ │ └── Front/
-│ │
-│ ├── Core/
-│ │ ├── Controller.php
-│ │ ├── Router.php
-│ │ ├── Model.php
-│ │ ├── View.php
-│ │ ├── Security.php
-│ │ ├── Validator.php
-│ │ ├── Session.php
-│ │ ├── Database.php
-│ │ └── ErrorHandler.php
-│ │
-│ ├── Models/
-│ │ └── User.php
-│ │
-│ └── views/
-│ ├── admin/
-│ ├── auth/
-│ │ ├── login.twig
-│ │ └── register.php
-│ ├── errors/
-│ │ ├── 403.php
-│ │ ├── 404.twig
-│ │ └── 500.php
-│ ├── home/
-│ │ └── index.php
-│ ├── layouts/
-│ └── test/
-│ └── login.twig
-│
-├── config/
-│ └── routes.php
-│
-├── public/
-│ └── index.php
-│
-├── vendor/
-├── .gitignore
-├── composer.json
-├── composer.lock
-└── readme.md
-
-
----
-
 ## 🚦 Fonctionnement global
 
 1. La requête HTTP arrive sur `public/index.php`
