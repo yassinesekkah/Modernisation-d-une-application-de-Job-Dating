@@ -30,44 +30,42 @@ Le framework est léger, structuré, sécurisé et extensible.
 
 JOB-DATING/
 ├── App/
-│ ├── Controllers/
-│ │ ├── Back/
-│ │ └── Front/
-│ │
-│ ├── Core/
-│ │ ├── Controller.php
-│ │ ├── Router.php
-│ │ ├── Model.php
-│ │ ├── View.php
-│ │ ├── Security.php
-│ │ ├── Validator.php
-│ │ ├── Session.php
-│ │ ├── Database.php
-│ │ └── ErrorHandler.php
-│ │
-│ ├── Models/
-│ │ └── User.php
-│ │
-│ └── views/
-│ ├── admin/
-│ ├── auth/
-│ │ ├── login.twig
-│ │ └── register.php
-│ ├── errors/
-│ │ ├── 403.php
-│ │ ├── 404.twig
-│ │ └── 500.php
-│ ├── home/
-│ │ └── index.php
-│ ├── layouts/
-│ └── test/
-│ └── login.twig
+│   ├── Controllers/
+│   │   ├── Back/
+│   │   └── Front/
+│   │
+│   ├── Core/
+│   │   ├── Controller.php
+│   │   ├── Router.php
+│   │   ├── Model.php
+│   │   ├── View.php
+│   │   ├── Security.php
+│   │   ├── Validator.php
+│   │   ├── Session.php
+│   │   ├── Database.php
+│   │   └── ErrorHandler.php
+│   │
+│   ├── Models/
+│   │   └── User.php
+│   │
+│   └── views/
+│       ├── admin/
+│       ├── auth/
+│       │   ├── login.twig
+│       │   └── register.php
+│       ├── errors/
+│       │   ├── 403.php
+│       │   ├── 404.twig
+│       │   └── 500.php
+│       ├── home/
+│       │   └── index.php
+│       ├── layouts/
 │
 ├── config/
-│ └── routes.php
+│   └── routes.php
 │
 ├── public/
-│ └── index.php
+│   └── index.php
 │
 ├── vendor/
 ├── .gitignore
