@@ -27,14 +27,18 @@ class Security
 
     public static function verifyCsrfToken(?string $token): bool
     {
-        return Session::has('csrf_token') && hash_equals(Session::get('csrf_token'), $token);
+        if (!$token || !Session::has('csrf_token')) {
+            return false;
+        }
+
+        return hash_equals(Session::get('csrf_token'), $token);
     }
 
     public static function checkCsrfOrFail(?string $token): void
     {
         if (!self::verifyCsrfToken($token)) {
-            http_response_code(403);
-            exit('Forbidden - invalid CSRF token');
+            http_response_code(419);
+            exit('Invalid CSRF token');
         }
     }
 
@@ -64,7 +68,8 @@ class Security
 
         if (Session::get('user')['role'] !== $role) {
             http_response_code(403);
-            exit('Access denied');
+            View::render('errors/403');
+            exit;
         }
     }
 

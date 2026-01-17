@@ -27,7 +27,7 @@ class Router
 
         if (!isset($this->routes[$method][$url])) {
             http_response_code(404);
-            echo "404 Not Found";
+            View::render('errors/404');
             return;
         }
 

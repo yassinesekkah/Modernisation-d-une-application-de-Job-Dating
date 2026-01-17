@@ -17,7 +17,7 @@ class HomeController extends Controller
 
         $userFound = User::find(7);
 
-        View::render('home/index', [
+        View::renders('home/index', [
             'users' => $users,
             'title' => 'Liste des utilisateurs',
             'userFound' => $userFound

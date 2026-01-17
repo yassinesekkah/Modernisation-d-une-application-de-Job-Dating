@@ -20,3 +20,6 @@ ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.cookie_secure', 0); // mettre à 1 si HTTPS
 ini_set('session.cookie_samesite', 'Strict');
+
+
+define('APP_DEBUG', true); // false fel production
