@@ -16,4 +16,8 @@ class AdminController extends Controller
             'title' => 'Admin Dashboard'
         ], 'back');
     }
+    public function test(): void
+    {
+        $this->render("/login");
+    }
 }

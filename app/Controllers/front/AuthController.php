@@ -15,13 +15,14 @@ class AuthController extends Controller
     {
         View::render('auth/login');
     }
-
+    
 
     public function registerForm()
     {
         View::render('auth/register');
     }
 
+    
     public function register()
     {
     ///check dyal csrf token

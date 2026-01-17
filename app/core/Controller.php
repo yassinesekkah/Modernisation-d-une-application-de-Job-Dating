@@ -6,7 +6,7 @@ abstract class Controller
     protected string $viewsPath = __DIR__ . "/../views/";
 
     ///kaysaweb l path pour utiliser sur les classes enfants
-    protected function render(string $view, array $data = []): void
+    protected function renders(string $view, array $data = []): void
     {   
         ///hna extract kadir transfer lel keys l variables
         if(!empty($data)){
@@ -14,6 +14,10 @@ abstract class Controller
         }
 
         require $this -> viewsPath . $view . ".php";
+    }
+    protected function render(string $view, array $data = []): void
+    {   
+         View::render($view, $data);
     }
 
     ///verify csrf
