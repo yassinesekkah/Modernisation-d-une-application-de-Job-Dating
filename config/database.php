@@ -22,4 +22,4 @@ ini_set('session.cookie_secure', 0); // mettre à 1 si HTTPS
 ini_set('session.cookie_samesite', 'Strict');
 
 
-define('APP_DEBUG', true); // false fel production
+define('APP_DEBUG', false); // false fel production
